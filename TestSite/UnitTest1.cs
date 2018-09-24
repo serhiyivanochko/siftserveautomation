@@ -17,8 +17,12 @@ namespace TestSite
             chrome = new ChromeDriver();
 
             chrome.Navigate().GoToUrl("http://atqc-shop.epizy.com/");
+
+            chrome.FindElementByName("search").Click();
+            chrome.FindElementByName("search").Clear();
             chrome.FindElementByName("search").SendKeys(search);
             chrome.FindElementByClassName("fa-search").Click();
+            
 
             Assert.AreEqual(chrome.FindElementsByClassName("product-layout").Count,count);
         }
