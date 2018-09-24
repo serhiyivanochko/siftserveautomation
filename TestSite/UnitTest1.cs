@@ -22,15 +22,15 @@ namespace TestSite
             Assert.AreEqual(chrome.FindElementsByClassName("product-layout").Count,count);
         }
 
-        [TestCase("Apple", 4)]
-        public void TestCategoryDropDown(string search, int count) {
+        [TestCase("Apple", 4, 17)]
+        public void TestCategoryDropDown(string search, int count, int categoryIndex) {
             chrome = new ChromeDriver();
 
             chrome.Navigate().GoToUrl("http://atqc-shop.epizy.com/");
             chrome.FindElementByName("search").SendKeys(search);
             chrome.FindElementByClassName("fa-search").Click();
             chrome.FindElementByName("category_id").Click();
-            chrome.FindElementsByTagName("option")[17].Click();
+            chrome.FindElementsByTagName("option")[categoryIndex].Click();
             chrome.FindElementById("button-search").Click();
 
             Assert.AreEqual(chrome.FindElementsByClassName("product-layout").Count, count);
