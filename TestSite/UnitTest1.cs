@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -11,7 +12,7 @@ namespace TestSite
     {
         ChromeDriver chrome;
 
-        [TestCase("Apple",7)]
+        [TestCase("Apple", 7)]
         public void SearchingResultItemsCount(string search, int count)
         {
             chrome = new ChromeDriver();
@@ -22,9 +23,9 @@ namespace TestSite
             chrome.FindElementByName("search").Clear();
             chrome.FindElementByName("search").SendKeys(search);
             chrome.FindElementByClassName("fa-search").Click();
-            
 
-            Assert.AreEqual(chrome.FindElementsByClassName("product-layout").Count,count);
+
+            Assert.AreEqual(chrome.FindElementsByClassName("product-layout").Count, count);
         }
 
         [TestCase("Apple")]
@@ -37,21 +38,41 @@ namespace TestSite
             chrome.FindElementByClassName("fa-search").Click();
             chrome.FindElementByName("category_id").Click();
 
-            for (int i = 0; i < chrome.FindElementsByTagName("option").Count; i++) {
-                chrome.FindElementsByTagName("option")[i].Click();
-                Assert.AreEqual(current.Text, chrome.FindElementsByTagName("option")[i].Text);
+            string openedOption = null;
+            List<string> list = new List<string>();
+            foreach (var current in chrome.FindElementByName("category_id").FindElements(By.TagName("option"))) {
+                list.Add(current.Text);
+            }
+            for(int i=0;i< list .Count;i++)
+            {
+                var elements = chrome.FindElementByName("category_id").FindElements(By.TagName("option"));
+                elements[i].Click();
+
+                chrome.FindElementById("button-search").Click();
+
+                IWebElement selectedOption = null;
+                foreach (var current in chrome.FindElementByName("category_id").FindElements(By.TagName("option")))
+                {
+                    if (current.Selected)
+                    {
+                        selectedOption = current;
+                        break;
+                    }
+                }
+
+                Assert.AreEqual(list[i], selectedOption.Text);
             }
 
-            foreach (var current in chrome.FindElementsByTagName("option")) {
-                current.Click();
-                
-                
-            }
-            
+
+           
+
+
+
         }
 
         [TestCase("Apple", 4, 17)]
-        public void TestCategoryResult(string search, int count, int categoryIndex) {
+        public void TestCategoryResult(string search, int count, int categoryIndex)
+        {
             chrome = new ChromeDriver();
 
             chrome.Navigate().GoToUrl("http://atqc-shop.epizy.com/");
