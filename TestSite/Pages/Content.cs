@@ -17,6 +17,16 @@ namespace TestSite.Pages
         protected IWebElement searchCategoryCheck { get; private set; }
         protected IWebElement searchDescriptionChek { get; private set; }
         protected IWebElement searchButton { get; private set; }
+        protected IWebElement listShowButton { get; private set; }
+        protected IWebElement gridShowButton { get; private set; }
+        protected IWebElement productCompareLabel { get; private set; }
+        protected IWebElement productPageLabel { get; private set; }
+
         protected SelectElement selectCategory { get; private set; }
+        protected SelectElement selectSortBy { get; private set; }
+        protected SelectElement selectShow { get; private set; }
+
+
+
     }
 }
