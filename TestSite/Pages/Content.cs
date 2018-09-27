@@ -45,5 +45,95 @@ namespace TestSite.Pages
 
         }
 
+        public string GetTextFromSearchLabel() {
+            return this.searchLabel.Text;
+        }
+
+        public void ClearSearchTextBox()
+        {
+            this.searchTextBox.Clear();
+        }
+        public void ClickSearchTextBox()
+        {
+            this.searchTextBox.Click();
+        }
+        public void SetTextInSearchTextBox(string text)
+        {
+            this.searchTextBox.SendKeys(text);
+        }
+        public string GetTextFromSearchTextBox()
+        {
+            return this.searchTextBox.Text;
+        }
+
+        public void ClickSearchCategoryCheck() {
+            this.searchCategoryCheck.Click();
+        }
+        public bool GetSearchCategoryValue() {
+            return this.searchCategoryCheck.Selected;
+        }
+
+        public bool GetSearchDescriptionValue()
+        {
+            return this.searchDescriptionChek.Selected;
+        }
+        public void ClickSearchDescription()
+        {
+            this.searchDescriptionChek.Click();
+        }
+
+        public void ClickSearchButton() {
+            this.searchButton.Click();
+        }
+
+        public void ClickListShowButton()
+        {
+            this.listShowButton.Click();
+        }
+
+        public void ClickGridShowButton()
+        {
+            this.gridShowButton.Click();
+        }
+
+        public void ClickProductCompareLabel() {
+            this.productCompareLabel.Click();
+        }
+        public string GetProductCompareText() {
+            return this.productCompareLabel.Text;
+        }
+
+        public string GetProductPageLabelText()
+        {
+            return this.productPageLabel.Text;
+        }
+
+        public void SetCategoryValue(string category) {
+            this.selectCategory.SelectByValue(category);
+        }
+        public string GetSelectedCategory() {
+            return this.selectCategory.SelectedOption.Text;
+        }
+
+        public void SetSortedByValue(string sorted)
+        {
+            this.selectSortBy.SelectByValue(sorted);
+        }
+        public string GetSelectedSortBy()
+        {
+            return this.selectSortBy.SelectedOption.Text;
+        }
+
+        public void SetShowValue(string category)
+        {
+            this.selectShow.SelectByValue(category);
+        }
+        public string GetSelectedShow()
+        {
+            return this.selectShow.SelectedOption.Text;
+        }
+
+
+
     }
 }
