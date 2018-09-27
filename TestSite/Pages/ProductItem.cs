@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace TestSite.Pages
 {
-    class AProductItem
+    class ProductItem
     {
         protected IWebElement productBox { get; private set; }
         protected IWebElement productImage { get; private set; }
@@ -22,19 +22,19 @@ namespace TestSite.Pages
         protected IWebElement productIconFavourite { get; private set; }
         protected IWebElement productIconCompare { get; private set; }
 
-        static protected List<AProductItem> listProduct;
+        static protected List<ProductItem> listProduct;
 
-        public AProductItem()
+        public ProductItem()
         {
 
         }
-        public AProductItem(IWebDriver driver)
+        public ProductItem(IWebDriver driver)
         {
             var elements = driver.FindElements(By.ClassName("product-layout"));
 
             foreach (var current in elements)
             {
-                AProductItem product = new AProductItem();
+                ProductItem product = new ProductItem();
 
                 product.productBox = current;
                 product.productImage = current.FindElement(By.ClassName("image"));

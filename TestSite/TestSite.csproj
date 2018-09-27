@@ -58,8 +58,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pages\AHeader.cs" />
-    <Compile Include="Pages\AProductItem.cs" />
+    <Compile Include="Pages\Header.cs" />
+    <Compile Include="Pages\Content.cs" />
+    <Compile Include="Pages\ProductItem.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
