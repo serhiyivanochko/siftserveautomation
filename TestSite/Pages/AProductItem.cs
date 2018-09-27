@@ -24,48 +24,75 @@ namespace TestSite.Pages
 
         static protected List<AProductItem> listProduct;
 
+        public AProductItem()
+        {
+
+        }
         public AProductItem(IWebDriver driver)
         {
-
-
             var elements = driver.FindElements(By.ClassName("product-layout"));
+
             foreach (var current in elements)
             {
-                this.productBox = current;
-                this.productImage = current.FindElement(By.ClassName("image"));
-                this.productName = current.FindElement(By.CssSelector(".caption+h4+a"));
-                this.productDescription = current.FindElements(By.CssSelector(".caption p"))[0];
-                this.productPrice = current.FindElement(By.CssSelector(".caption .price"));
+                AProductItem product = new AProductItem();
 
+                product.productBox = current;
+                product.productImage = current.FindElement(By.ClassName("image"));
+                product.productName = current.FindElement(By.CssSelector(".caption+h4+a"));
+                product.productDescription = current.FindElements(By.CssSelector(".caption p"))[0];
+                product.productPrice = current.FindElement(By.CssSelector(".caption .price"));
+                product.productExTax = current.FindElement(By.CssSelector(".caption .price .price-tax"));
+                var listIcons = current.FindElements(By.CssSelector(".button-group"));
+                product.productIconCart = listIcons[0];
+                product.productIconFavourite = listIcons[1];
+                product.productIconCompare = listIcons[2];
+
+                listProduct.Add(product);
             }
-
-
-            
-
         }
 
-        //TextBox
-        public void ClearSearchTextBox()
+        //ProductImage
+        public void ClickProductImage()
         {
-            this.searchTextBox.Clear();
+            this.productImage.Click();
         }
-        public void ClickSearchTextBox()
+        
+        //ProductName
+        public void ClickProductName()
         {
-            this.searchTextBox.Click();
-        }
-        public void SetTextInSearchTextBox(string text)
-        {
-            this.searchTextBox.SendKeys(text);
-        }
-        public string GetTextFromSearchTextBox()
-        {
-            return this.searchTextBox.Text;
+            this.productName.Click();
         }
 
-        //Button
-        public void ClickSearchButton()
+        //GetTextFromLabel
+        public string GetTextFromProductName()
         {
-            this.searchButton.Click();
+            return this.productName.Text;
+        }
+        public string GetTextFromProductDescription()
+        {
+            return this.productDescription.Text;
+        }
+        public string GetTextFromProductPrice()
+        {
+            return this.productPrice.Text;
+        }
+        public string GetTextFromProductExTax()
+        {
+            return this.productExTax.Text;
+        }
+
+        //Buttons
+        public void ClickCartButton()
+        {
+            this.productIconCart.Click();
+        }
+        public void ClickCartfavourite()
+        {
+            this.productIconFavourite.Click();
+        }
+        public void ClickCompareButton()
+        {
+            this.productIconCompare.Click();
         }
     }
 }
