@@ -28,8 +28,14 @@ namespace TestSite.Logic
 
             if (chekSubcategory != content.GetSearchCategoryValue()) {
                 content.ClickSearchCategoryCheck();
-            } 
+            }
 
+            if (checkSearchInDesc != content.GetSearchDescriptionValue())
+            {
+                content.ClickSearchDescription();
+            }
+
+            content.ClickSearchButton();
         }
     }
 }
