@@ -42,7 +42,6 @@ namespace TestSite
             chrome.FindElementByClassName("fa-search").Click();
             chrome.FindElementByName("category_id").Click();
 
-            string openedOption = null;
             List<string> list = new List<string>();
             foreach (var current in chrome.FindElementByName("category_id").FindElements(By.TagName("option"))) {
                 list.Add(current.Text);
