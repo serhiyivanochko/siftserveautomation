@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-
+using TestSite.Logic;
 
 namespace TestSite.Pages
 {
@@ -22,33 +22,23 @@ namespace TestSite.Pages
         protected IWebElement productIconFavourite { get; private set; }
         protected IWebElement productIconCompare { get; private set; }
 
-        static protected List<ProductItem> listProduct;
+        
 
-        public ProductItem()
+       
+        public ProductItem(IWebDriver driver, IWebElement current)
         {
 
-        }
-        public ProductItem(IWebDriver driver)
-        {
-            var elements = driver.FindElements(By.ClassName("product-layout"));
+            this.productBox = current;
+            this.productImage = current.FindElement(By.ClassName("image"));
+            this.productName = current.FindElement(By.CssSelector(".caption>h4>a"));
+            this.productDescription = current.FindElements(By.CssSelector(".caption p"))[0];
+            this.productPrice = current.FindElement(By.CssSelector(".caption .price"));
+            this.productExTax = current.FindElement(By.CssSelector(".caption .price .price-tax"));
+            var listIcons = current.FindElements(By.CssSelector(".button-group>button"));
+            this.productIconCart = listIcons[0];
+            this.productIconFavourite = listIcons[1];
+            this.productIconCompare = listIcons[2];
 
-            foreach (var current in elements)
-            {
-                ProductItem product = new ProductItem();
-
-                product.productBox = current;
-                product.productImage = current.FindElement(By.ClassName("image"));
-                product.productName = current.FindElement(By.CssSelector(".caption+h4+a"));
-                product.productDescription = current.FindElements(By.CssSelector(".caption p"))[0];
-                product.productPrice = current.FindElement(By.CssSelector(".caption .price"));
-                product.productExTax = current.FindElement(By.CssSelector(".caption .price .price-tax"));
-                var listIcons = current.FindElements(By.CssSelector(".button-group"));
-                product.productIconCart = listIcons[0];
-                product.productIconFavourite = listIcons[1];
-                product.productIconCompare = listIcons[2];
-
-                listProduct.Add(product);
-            }
         }
 
         //ProductImage

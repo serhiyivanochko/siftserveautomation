@@ -13,20 +13,46 @@ namespace TestSite.Logic
 
     class SearchMethods
     {
-        static ChromeDriver driver;
 
-        public SearchMethods() {
-            driver = new ChromeDriver();
+        public SearchMethods()
+        {
+            GlobalVariables.driver = new ChromeDriver();
+            GlobalVariables.driver.Navigate().GoToUrl("http://atqc-shop.epizy.com/");
+        }
+        public int Search(string textSearch)
+        {
+            Header item = new Header(GlobalVariables.driver);
+            item.ClickSearchTextBox();
+            item.ClearSearchTextBox();
+            item.SetTextInSearchTextBox(textSearch);
+            Content page = item.ClickSearchButton();
+
+            return page.GetListProduct().Count;
         }
 
-        public static void SearchingMethod(string testSearch, string category, bool chekSubcategory = false, bool checkSearchInDesc = false)
+        public bool TestCategoriesValue(List<string> list)
         {
-            Content content = new Content(driver);
+            Content content = new Content(GlobalVariables.driver);
+            List<string> actual = content.GetListOfCategories();
+            int count = 0;
+            for (int i = 0; i < actual.Count; i++) {
+                if (actual[i].Replace(" ", "") == list[i].Replace(" ", "")) {
+                    count++;
+                }
+            }
+            
+            return count == actual.Count ? true : false; ;
+        }
+
+        public void SearchingMethod(string testSearch, string category, bool chekSubcategory = false, bool checkSearchInDesc = false)
+        {
+            Content content = new Content(GlobalVariables.driver);
 
             content.SetTextInSearchTextBox(testSearch);
             content.SetCategoryValue(category);
 
-            if (chekSubcategory != content.GetSearchCategoryValue()) {
+            if (chekSubcategory != content.GetSearchCategoryValue())
+            {
                 content.ClickSearchCategoryCheck();
             }
 
@@ -36,6 +62,11 @@ namespace TestSite.Logic
             }
 
             content.ClickSearchButton();
+        }
+
+        public void CloseBrowser()
+        {
+            GlobalVariables.driver.Close();
         }
     }
 }

@@ -70,3 +70,5 @@ C:\Users\sivanotc\Source\Repos\siftserveautomation\TestSite\obj\Debug\TestSite.c
 C:\Users\sivanotc\Source\Repos\siftserveautomation\TestSite\obj\Debug\TestSite.csproj.CopyComplete
 C:\Users\sivanotc\Source\Repos\siftserveautomation\TestSite\obj\Debug\TestSite.dll
 C:\Users\sivanotc\Source\Repos\siftserveautomation\TestSite\obj\Debug\TestSite.pdb
+D:\SoftServe\siftserveautomation\TestSite\bin\Debug\WebDriver.Support.dll
+D:\SoftServe\siftserveautomation\TestSite\bin\Debug\WebDriver.Support.xml

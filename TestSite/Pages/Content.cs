@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-
+using TestSite.Logic;
 
 namespace TestSite.Pages
 {
-    class Content
+    class Content : Header
     {
+        
         protected IWebElement searchLabel { get; private set; }
-        protected IWebElement searchTextBox { get; private set; }
+        protected IWebElement searchTextBoxInsideContent { get; private set; }
         protected IWebElement searchCategoryCheck { get; private set; }
         protected IWebElement searchDescriptionChek { get; private set; }
-        protected IWebElement searchButton { get; private set; }
+        protected IWebElement searchButtonInsideContent { get; private set; }
         protected IWebElement listShowButton { get; private set; }
         protected IWebElement gridShowButton { get; private set; }
         protected IWebElement productCompareLabel { get; private set; }
@@ -26,14 +27,17 @@ namespace TestSite.Pages
         protected SelectElement selectSortBy { get; private set; }
         protected SelectElement selectShow { get; private set; }
 
-        public Content(IWebDriver driver)
-        {
+        protected List<ProductItem> listProduct;
 
-            this.searchLabel = driver.FindElement(By.CssSelector(".content+h1"));
-            this.searchTextBox = driver.FindElement(By.Id("input-search"));
+        public Content(IWebDriver driver) : base(driver)
+        {
+            this.driver = driver;
+
+            this.searchLabel = driver.FindElement(By.CssSelector("#content h1"));
+            this.searchTextBoxInsideContent = driver.FindElement(By.Id("input-search"));
             this.searchCategoryCheck = driver.FindElement(By.Name("sub_category"));
             this.searchDescriptionChek = driver.FindElement(By.Name("description"));
-            this.searchButton = driver.FindElement(By.Id("button-search"));
+            this.searchButtonInsideContent = driver.FindElement(By.Id("button-search"));
             this.listShowButton = driver.FindElement(By.Id("list-view"));
             this.gridShowButton = driver.FindElement(By.Id("grid-view"));
             this.productCompareLabel = driver.FindElement(By.Id("compare-total"));
@@ -43,31 +47,45 @@ namespace TestSite.Pages
             this.selectSortBy = new SelectElement(driver.FindElement(By.Id("input-sort")));
             this.selectShow = new SelectElement(driver.FindElement(By.Id("input-limit")));
 
+            var elements = driver.FindElements(By.ClassName("product-layout"));
+            this.listProduct = new List<ProductItem>();
+
+            foreach (var current in elements) {
+                this.listProduct.Add(new ProductItem(driver, current));
+            }
+        }
+
+        public List<ProductItem> GetListProduct() {
+            return this.listProduct;
         }
 
         public string GetTextFromSearchLabel() {
             return this.searchLabel.Text;
         }
 
-        public void ClearSearchTextBox()
+        public Content ClearsearchTextBoxInsideContent()
         {
-            this.searchTextBox.Clear();
+            searchTextBoxInsideContent.Clear();
+            return this;
         }
-        public void ClickSearchTextBox()
+        public Content ClicksearchTextBoxInsideContent()
         {
-            this.searchTextBox.Click();
+            searchTextBoxInsideContent.Click();
+            return this;
         }
-        public void SetTextInSearchTextBox(string text)
+        public Content SetTextInsearchTextBoxInsideContent(string text)
         {
-            this.searchTextBox.SendKeys(text);
+            this.searchTextBoxInsideContent.SendKeys(text);
+            return this;
         }
-        public string GetTextFromSearchTextBox()
+        public string GetTextFromsearchTextBoxInsideContent()
         {
-            return this.searchTextBox.Text;
+            return this.searchTextBoxInsideContent.Text;
         }
 
-        public void ClickSearchCategoryCheck() {
+        public Content ClickSearchCategoryCheck() {
             this.searchCategoryCheck.Click();
+            return this;
         }
         public bool GetSearchCategoryValue() {
             return this.searchCategoryCheck.Selected;
@@ -77,27 +95,32 @@ namespace TestSite.Pages
         {
             return this.searchDescriptionChek.Selected;
         }
-        public void ClickSearchDescription()
+        public Content ClickSearchDescription()
         {
             this.searchDescriptionChek.Click();
+            return this;
         }
 
-        public void ClickSearchButton() {
-            this.searchButton.Click();
+        public Content ClickSearchButtonInsideContent() {
+            this.searchButtonInsideContent.Click();
+            return new Content(this.driver);
         }
 
-        public void ClickListShowButton()
+        public Content ClickListShowButton()
         {
             this.listShowButton.Click();
+            return this;
         }
 
-        public void ClickGridShowButton()
+        public Content ClickGridShowButton()
         {
             this.gridShowButton.Click();
+            return this;
         }
 
-        public void ClickProductCompareLabel() {
+        public Content ClickProductCompareLabel() {
             this.productCompareLabel.Click();
+            return this;
         }
         public string GetProductCompareText() {
             return this.productCompareLabel.Text;
@@ -108,25 +131,36 @@ namespace TestSite.Pages
             return this.productPageLabel.Text;
         }
 
-        public void SetCategoryValue(string category) {
+        public List<string> GetListOfCategories() {
+            List<string> list = new List<string>();
+            foreach (var current in this.selectCategory.Options) {
+                list.Add(current.Text);
+            }
+            return list;
+        }
+
+        public Content SetCategoryValue(string category) {
             this.selectCategory.SelectByValue(category);
+            return this;
         }
         public string GetSelectedCategory() {
             return this.selectCategory.SelectedOption.Text;
         }
 
-        public void SetSortedByValue(string sorted)
+        public Content SetSortedByValue(string sorted)
         {
             this.selectSortBy.SelectByValue(sorted);
+            return this;
         }
         public string GetSelectedSortBy()
         {
             return this.selectSortBy.SelectedOption.Text;
         }
 
-        public void SetShowValue(string category)
+        public Content SetShowValue(string category)
         {
             this.selectShow.SelectByValue(category);
+            return this;
         }
         public string GetSelectedShow()
         {

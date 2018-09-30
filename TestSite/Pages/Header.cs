@@ -11,10 +11,13 @@ namespace TestSite.Pages
 {
     class Header
     {
+        protected IWebDriver driver;
+
         protected IWebElement searchTextBox { get; private set; }
         protected IWebElement searchButton { get; private set; }
 
         public Header(IWebDriver driver) {
+            this.driver = driver;
             this.searchTextBox = driver.FindElement(By.XPath(".//div[@id='search']/input"));
             this.searchButton = driver.FindElement(By.XPath(".//div[@id='search']/span"));
         }
@@ -37,9 +40,10 @@ namespace TestSite.Pages
         }
 
         //Button
-        public void ClickSearchButton()
+        public Content ClickSearchButton()
         {
             this.searchButton.Click();
+            return new Content(driver);
         }
         
     }
