@@ -19,7 +19,7 @@ namespace TestSite.Logic
             GlobalVariables.driver = new ChromeDriver();
             GlobalVariables.driver.Navigate().GoToUrl("http://atqc-shop.epizy.com/");
         }
-        public int Search(string textSearch)
+        public Content Search(string textSearch)
         {
             Header item = new Header(GlobalVariables.driver);
             item.ClickSearchTextBox();
@@ -27,7 +27,7 @@ namespace TestSite.Logic
             item.SetTextInSearchTextBox(textSearch);
             Content page = item.ClickSearchButton();
 
-            return page.GetListProduct().Count;
+            return page;
         }
 
         public bool TestCategoriesValue(List<string> list)
@@ -42,6 +42,16 @@ namespace TestSite.Logic
             }
             
             return count == actual.Count ? true : false; ;
+        }
+
+        public int SearchByCategory(string textSearch, string category) {
+
+            Content content = Search(textSearch);
+            content.SetCategoryValue(category);
+
+            content = content.ClickSearchButtonInsideContent();
+
+            return content.GetListProduct().Count;
         }
 
         public void SearchingMethod(string testSearch, string category, bool chekSubcategory = false, bool checkSearchInDesc = false)

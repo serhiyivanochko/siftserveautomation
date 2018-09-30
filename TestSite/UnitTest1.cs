@@ -20,8 +20,8 @@ namespace TestSite
         [TestCase("Apple", 7)]
         public void SearchingResultItemsCount(string search, int count)
         {
-            int expected = page.Search(search);
-            Assert.AreEqual(page.Search(search), count);
+            int actual = page.Search(search).GetListProduct().Count;
+            Assert.AreEqual(actual, count);
         }
 
         [TestCase("Apple")]
@@ -30,41 +30,12 @@ namespace TestSite
             Assert.IsTrue(page.TestCategoriesValue(GlobalVariables.inputListCategories));
         }
 
-        //[TestCase("Apple")]
-        //public void TestCategoryDropDown(string search)
-        //{
+        [TestCase("Apple", "Tablets", 4)]
+        public void TestCategoryResult(string search, string category, int count) {
+            int actual = page.SearchByCategory(search, category);
+            Assert.AreEqual(actual, count);
+        }
 
-
-
-        //    chrome.FindElementByName("search").SendKeys(search);
-        //    chrome.FindElementByClassName("fa-search").Click();
-        //    chrome.FindElementByName("category_id").Click();
-
-        //    List<string> list = new List<string>();
-        //    foreach (var current in chrome.FindElementByName("category_id").FindElements(By.TagName("option"))) {
-        //        list.Add(current.Text);
-        //    }
-        //    for(int i=0;i< list .Count;i++)
-        //    {
-        //        var elements = chrome.FindElementByName("category_id").FindElements(By.TagName("option"));
-        //        elements[i].Click();
-
-        //        chrome.FindElementById("button-search").Click();
-
-        //        IWebElement selectedOption = null;
-        //        foreach (var current in chrome.FindElementByName("category_id").FindElements(By.TagName("option")))
-        //        {
-        //            if (current.Selected)
-        //            {
-        //                selectedOption = current;
-        //                break;
-        //            }
-        //        }
-
-        //        Assert.AreEqual(list[i], selectedOption.Text);
-        //    }
-
-        //}
 
         //[TestCase("Apple", 4, 17)]
         //public void TestCategoryResult(string search, int count, int categoryIndex)

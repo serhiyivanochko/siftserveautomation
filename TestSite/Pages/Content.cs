@@ -12,7 +12,7 @@ namespace TestSite.Pages
 {
     class Content : Header
     {
-        
+
         protected IWebElement searchLabel { get; private set; }
         protected IWebElement searchTextBoxInsideContent { get; private set; }
         protected IWebElement searchCategoryCheck { get; private set; }
@@ -140,7 +140,7 @@ namespace TestSite.Pages
         }
 
         public Content SetCategoryValue(string category) {
-            this.selectCategory.SelectByValue(category);
+            this.selectCategory.SelectByText(category);
             return this;
         }
         public string GetSelectedCategory() {
@@ -149,7 +149,7 @@ namespace TestSite.Pages
 
         public Content SetSortedByValue(string sorted)
         {
-            this.selectSortBy.SelectByValue(sorted);
+            this.selectSortBy.SelectByText(sorted);
             return this;
         }
         public string GetSelectedSortBy()
@@ -159,7 +159,7 @@ namespace TestSite.Pages
 
         public Content SetShowValue(string category)
         {
-            this.selectShow.SelectByValue(category);
+            this.selectShow.SelectByText(category);
             return this;
         }
         public string GetSelectedShow()
