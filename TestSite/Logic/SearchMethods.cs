@@ -14,10 +14,16 @@ namespace TestSite.Logic
     class SearchMethods
     {
 
+
         public SearchMethods()
         {
             GlobalVariables.driver = new ChromeDriver();
             GlobalVariables.driver.Navigate().GoToUrl("http://atqc-shop.epizy.com/");
+        }
+
+        public string GetSearchHeader(string search) {
+            Content content = Search(search);
+            return content.GetTextFromSearchLabel();
         }
         public Content Search(string textSearch)
         {

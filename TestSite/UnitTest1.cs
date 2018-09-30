@@ -36,33 +36,13 @@ namespace TestSite
             Assert.AreEqual(actual, count);
         }
 
+        [TestCase("Apple")]
+        public void TestLabelSearch(string search) {
+            string actual = page.GetSearchHeader(search);
+            string expected = "Search - " + search;
+            Assert.AreEqual(actual, expected);
+        }
 
-        //[TestCase("Apple", 4, 17)]
-        //public void TestCategoryResult(string search, int count, int categoryIndex)
-        //{
-
-
-        //    chrome.FindElementByName("search").SendKeys(search);
-        //    chrome.FindElementByClassName("fa-search").Click();
-        //    chrome.FindElementByName("category_id").Click();
-        //    chrome.FindElementsByTagName("option")[categoryIndex].Click();
-        //    chrome.FindElementById("button-search").Click();
-
-        //    Assert.AreEqual(chrome.FindElementsByClassName("product-layout").Count, count);
-        //}
-        //[TestCase("Apple")]
-        //public void TestDescriptionCheckBox(string search) {
-
-
-
-
-        //    chrome.FindElementByName("search").SendKeys(search);
-        //    chrome.FindElementByClassName("fa-search").Click();
-        //    bool checked_element = chrome.FindElementById("description").Selected;
-        //    chrome.FindElementById("description").Click();
-        //    bool unchecked_element = chrome.FindElementById("description").Selected;
-        //    Assert.AreEqual(checked_element, !unchecked_element);
-        //}
 
 
         [TearDown]
