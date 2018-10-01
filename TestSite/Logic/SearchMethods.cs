@@ -27,7 +27,7 @@ namespace TestSite.Logic
         }
         public Content Search(string textSearch)
         {
-            Header item = new Header(GlobalVariables.driver);
+            Header item = new Header();
             item.ClickSearchTextBox();
             item.ClearSearchTextBox();
             item.SetTextInSearchTextBox(textSearch);

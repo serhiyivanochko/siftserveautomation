@@ -9,7 +9,7 @@ using TestSite.Logic;
 namespace TestSite
 {
     [TestFixture]
-    public class UnitTest1
+    public class Tests
     {
         SearchMethods page;
         [SetUp]

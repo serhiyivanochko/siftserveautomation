@@ -13,41 +13,25 @@ namespace TestSite.Pages
     class Content : Header
     {
 
-        protected IWebElement searchLabel { get; private set; }
-        protected IWebElement searchTextBoxInsideContent { get; private set; }
-        protected IWebElement searchCategoryCheck { get; private set; }
-        protected IWebElement searchDescriptionChek { get; private set; }
-        protected IWebElement searchButtonInsideContent { get; private set; }
-        protected IWebElement listShowButton { get; private set; }
-        protected IWebElement gridShowButton { get; private set; }
-        protected IWebElement productCompareLabel { get; private set; }
-        protected IWebElement productPageLabel { get; private set; }
+        protected IWebElement searchLabel = GlobalVariables.driver.FindElement(By.CssSelector("#content h1"));
+        protected IWebElement searchTextBoxInsideContent = GlobalVariables.driver.FindElement(By.Id("input-search"));
+        protected IWebElement searchCategoryCheck = GlobalVariables.driver.FindElement(By.Name("sub_category"));
+        protected IWebElement searchDescriptionChek = GlobalVariables.driver.FindElement(By.Name("description"));
+        protected IWebElement searchButtonInsideContent = GlobalVariables.driver.FindElement(By.Id("button-search"));
+        protected IWebElement listShowButton = GlobalVariables.driver.FindElement(By.Id("list-view"));
+        protected IWebElement gridShowButton = GlobalVariables.driver.FindElement(By.Id("grid-view"));
+        protected IWebElement productCompareLabel = GlobalVariables.driver.FindElement(By.Id("compare-total"));
+        protected IWebElement productPageLabel = GlobalVariables.driver.FindElement(By.ClassName("text-right"));
 
-        protected SelectElement selectCategory { get; private set; }
-        protected SelectElement selectSortBy { get; private set; }
-        protected SelectElement selectShow { get; private set; }
+        protected SelectElement selectCategory = new SelectElement(GlobalVariables.driver.FindElement(By.Name("category_id")));
+        protected SelectElement selectSortBy = new SelectElement(GlobalVariables.driver.FindElement(By.Id("input-sort")));
+        protected SelectElement selectShow = new SelectElement(GlobalVariables.driver.FindElement(By.Id("input-limit")));
 
         protected List<ProductItem> listProduct;
 
-        public Content(IWebDriver driver) : base(driver)
+        public Content(IWebDriver driver)
         {
-            this.driver = driver;
-
-            this.searchLabel = driver.FindElement(By.CssSelector("#content h1"));
-            this.searchTextBoxInsideContent = driver.FindElement(By.Id("input-search"));
-            this.searchCategoryCheck = driver.FindElement(By.Name("sub_category"));
-            this.searchDescriptionChek = driver.FindElement(By.Name("description"));
-            this.searchButtonInsideContent = driver.FindElement(By.Id("button-search"));
-            this.listShowButton = driver.FindElement(By.Id("list-view"));
-            this.gridShowButton = driver.FindElement(By.Id("grid-view"));
-            this.productCompareLabel = driver.FindElement(By.Id("compare-total"));
-            this.productPageLabel = driver.FindElement(By.ClassName("text-right"));
-
-            this.selectCategory = new SelectElement(driver.FindElement(By.Name("category_id")));
-            this.selectSortBy = new SelectElement(driver.FindElement(By.Id("input-sort")));
-            this.selectShow = new SelectElement(driver.FindElement(By.Id("input-limit")));
-
-            var elements = driver.FindElements(By.ClassName("product-layout"));
+            var elements = GlobalVariables.driver.FindElements(By.ClassName("product-layout"));
             this.listProduct = new List<ProductItem>();
 
             foreach (var current in elements) {
@@ -103,7 +87,7 @@ namespace TestSite.Pages
 
         public Content ClickSearchButtonInsideContent() {
             this.searchButtonInsideContent.Click();
-            return new Content(this.driver);
+            return new Content(GlobalVariables.driver);
         }
 
         public Content ClickListShowButton()
