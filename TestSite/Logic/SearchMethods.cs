@@ -18,6 +18,7 @@ namespace TestSite.Logic
         public SearchMethods()
         {
             GlobalVariables.driver = new ChromeDriver();
+            GlobalVariables.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             GlobalVariables.driver.Navigate().GoToUrl("http://atqc-shop.epizy.com/");
         }
 
